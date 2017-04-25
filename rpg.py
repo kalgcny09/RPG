@@ -19,34 +19,39 @@ monsters.append(Vampire())
 
 
 for monster in monsters:
-	print "welcome brave %s, you have encountered %s." % (the_hero.name, monster)
+	print "Welcome brave %s, you have encountered %s." % (the_hero.name, monster.name)
 
 
 	while monster.health > 0 and the_hero.is_alive():
 		print "You have %d health and %d power." % (the_hero.health, the_hero.power)
-		print "The goblin has %d health and %d power." % (monster.health, monster.power)
+		print "The %s has %d health and %d power." % (monster.name, monster.health, monster.power)
 		print "What do you want to do?"
-		print "1. fight goblin"
+		print "1. Fight %s" % monster.name
 		print "2. do nothing"
 		print "3. flee"
-		print "> ",
+		print "4. Drink Beer of life"
+		print "xxx ",
 		user_input = raw_input()
-		if user_input == "1":
-				monster.health -= the_hero.power
-					## you could also rwite goblin_health - goblin_health - heropower
-				print "You have done %d damage to the monster" % the_hero.power
+		if (user_input == "1"):
+				monster.take_damage(the_hero.power)
+				
+				print "You have done %d damage to the %s!" % (the_hero.power, monster.name)
 				if monster.health <= 0:
-					print "You have defeated the %s!" monster.name
+					print "You have defeated the %s!" % (monster.name)
 					the_hero.xp += monster.xp_value
-					the_hero.check
+					the_hero.check_level()
 
 		elif user_input == "2":
 			pass
 				## if you need this to exist but you dont want the code to do anything
 
-		if user_input == "3":
+		elif user_input == "3":
 			print "Goodbye, coward"
 			break
+
+		elif user_input == "4":
+			the_hero.increase_health(20)
+
 		else:
 			print "Invalid input %s" % user_input
 
